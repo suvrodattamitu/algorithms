@@ -1,0 +1,5 @@
+-> How to solve greedy questions.
+
+*some popular algorithms to solve it
+
+1. priority queue (min and max both)
