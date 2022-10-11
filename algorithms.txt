@@ -1,0 +1,17 @@
+//topics to cover within 1000s
+    ---- alpha ----
+1. bfs/dfs
+2. binary search
+3. dynamic programming
+
+4. trees/backtracking/recursion[10+]
+5. greedy[43+]
+6. bit manupulation[5+]
+
+//others
+1. prime factors/sieve
+2. combinatorics
+3. matrix
+4. sliding window
+5. segment tree
+6. stack/queue/priority queue

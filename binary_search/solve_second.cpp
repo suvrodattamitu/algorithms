@@ -26,23 +26,49 @@ typedef pair<ll,ll> pll;
 
 void solve() 
 {
-	ll n;
-    cin >> n;
+	ll x, y, n, r;
+	cin >> x >> y >> n >> r;
 
-    vi a(n);
-    rep0(i, n) cin >> a[i];
+	ll mn = min(x, y);
 
-    int cnt = 0, ans = 0;
-    rep0(i, n) {
-        if(a[i] == 1) {
-            cnt++;
-            ans += cnt;
-        } else {
-            cnt = 0;
-        }
-    }
+	ll total = mn*n;
+	if(r < total) {
+		cout << -1 << endl;
+		return;
+	}
 
-    cout << ans + cnt << endl;
+	if(mn == y) {
+		if(total <= r) {
+			cout << 0 << " " << n << endl;
+		} else {
+			cout << -1 << endl;
+		}
+
+		return;
+	}
+
+
+	ll low = 0, high = n, ans = 0;
+
+	while(low <= high) {
+		ll mid = (low+high) / 2;
+
+		ll total = (mid * y) + ((n-mid) * x);
+		if(total <= r) {
+		    low = mid + 1;
+			ans = mid;
+		} else {
+		    high = mid - 1;
+		}
+	}
+	
+	ll curTotal = ((n - ans) * x) + (ans * y);
+	if(curTotal > r) {
+	    cout << -1 << endl;
+	    return;
+	}
+
+	cout << n - ans << " " << ans << endl;
 }
 
 int main() 
