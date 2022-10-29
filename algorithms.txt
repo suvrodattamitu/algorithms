@@ -15,3 +15,5 @@
 4. sliding window
 5. segment tree
 6. stack/queue/priority queue
+
+[codeforces ratings <= 1600 should solved]

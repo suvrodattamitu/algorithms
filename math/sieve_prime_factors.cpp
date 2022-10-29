@@ -15,11 +15,11 @@ typedef vector<vi> vvi;
 typedef map<ll,ll> mpp;
 typedef pair<ll,ll> pll;
 
-bool prime[100007];
-int factors[100007];
+bool prime[1000001];
+int factors[1000001];
 void sieve(ll n) {
 	memset(prime, true, sizeof(prime));
- 
+ 	prime[0] = false, prime[1] = false;
     for (int p = 2; p <= n; p++) {
         if (prime[p]) {
 			factors[p] = 1;
@@ -50,7 +50,7 @@ int main()
 {
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     
-	sieve(100001);
+	sieve(1000001);
 
 	int tc = 1 ;
 	cin >> tc;
