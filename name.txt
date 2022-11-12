@@ -1,0 +1,17 @@
+    level - alpha (first week) -> (ongoing)
+1. dfs(done)/bfs(done)/dsu(done)  
+
+
+
+    level - beta (second week)
+2. recursion/dp/backtrack 
+
+
+
+    level - ghama (third week)
+3. tree/binary_search/bit 
+
+
+
+    level - theta (fourth week)
+4. segment_tree/priority_queue/topological sort 
