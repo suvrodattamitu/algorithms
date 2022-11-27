@@ -16,4 +16,4 @@
 5. segment tree
 6. stack/queue/priority queue
 
-[codeforces ratings <= 1600 should solved]
+[codeforces ratings (1400 >= difficulty && difficulty <= 1600) should solved]

@@ -1,0 +1,3 @@
+vertices/nodes(vertex/node for single one) and edges
+https://en.wikipedia.org/wiki/Vertex_(graph_theory)#/media/File:6n-graf.svg
+

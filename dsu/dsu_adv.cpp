@@ -1,3 +1,4 @@
+//https://atcoder.jp/contests/abc279/tasks/abc279_f
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -15,6 +16,7 @@ using namespace std;
 #define pb push_back
 const int MOD = 1000000007;
 const int N = 1e5+10;
+const ll MX = 300005;
 typedef vector<ll> vi;
 
 template<typename T>
@@ -29,7 +31,7 @@ ostream &operator<<(ostream &os, vector<T> v) {
     return os;
 } 
 
-int findParent(int i, int parent[])
+ll findParent(ll i, ll parent[])
 //function to find the connected component that the ith node belongs to
 {
     if(parent[parent[i]] != parent[i])
@@ -37,11 +39,11 @@ int findParent(int i, int parent[])
     return parent[i];
 }
 
-void unionNodes(int a, int b, int parent[], int size[])
+void unionNodes(ll a, ll b, ll parent[], ll size[])
 //to merge the connected components of nodes a and b
 {
-    int parent_a = findParent(a, parent);
-    int parent_b = findParent(b, parent);
+    ll parent_a = findParent(a, parent);
+    ll parent_b = findParent(b, parent);
     
     if(parent_a == parent_b)
         return;
@@ -65,12 +67,16 @@ void solve() {
     ll n, q;
     cin >> n >> q;
     
-    int parent[n+10] = {0}, size[n+10] = {0};
+    ll parent[n+q] = {0}, size[n+q] = {0}, content[n+q] = {0}, belong[n+q] = {0};
     
     //at first everyone is parent of everyone
-    rep0(i, n) parent[i] = i;
+    for(ll i = 1; i <= n+q; i++) {
+        parent[i]  = i;
+        content[i] = i;
+        belong[i]  = i;
+    }
 
-    int type, x;
+    ll type, x, y, k = n;
     while(q--) {
         get(type);
 
@@ -78,7 +84,35 @@ void solve() {
             get(x);
             //Report the number of the box that contains ball X
             int ans = findParent(x, parent);
-            put(parent[ans]);
+            put(belong[ans]);
+        }
+        
+        else if(type == 1) {
+            cin >> x >> y;
+            //Put all contents of box Y into box X
+            
+            if (content[y] == -1) {
+                continue;
+            } else if (content[x] == -1) {
+                content[x] = content[y];
+                content[y] = -1;
+                belong[content[x]] = x;
+            } else {
+                unionNodes(content[x], content[y], parent, size);
+                content[y] = -1;
+            }
+        }
+        
+        else if(type == 2) {
+            get(x);
+            // Put ball k+1 into box X
+            k += 1;
+            if (content[x] == -1) {
+                content[x]  = k;
+                belong[k] = x;
+            } else {
+                unionNodes(content[x], k, parent, size);
+            }
         }
     }
 }

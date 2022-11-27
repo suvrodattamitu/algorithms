@@ -1,17 +1,26 @@
+(a) algorithms
     level - alpha (first week) -> (ongoing)
-1. dfs(done)/bfs(done)/dsu(done)  
+1. dfs/bfs/dsu(pending atcoder)
 
 
 
     level - beta (second week)
 2. recursion/dp/backtrack 
-
-
+https://discuss.codechef.com/t/a-surprise-for-everyone-updated/65242
+https://atcoder.jp/contests/dp/tasks
+https://codeforces.com/group/MWSDmqGsZm/contest/223339
 
     level - ghama (third week)
-3. tree/binary_search/bit 
+3. tree/binary_search(done)/bit 
 
 
+[monday - friday]
+1.contests
+2.solves more codeforces 1400 and 1500 problems(untill they seem easy)
 
-    level - theta (fourth week)
-4. segment_tree/priority_queue/topological sort 
+[every saturday and sunday]
+1. practices/contests at leetcode and atcoder
+2. learn specific topics
+
+//do this contest
+https://codeforces.com/contest/1627

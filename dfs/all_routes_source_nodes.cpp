@@ -1,4 +1,6 @@
 //https://leetcode.com/problems/all-paths-from-source-to-target/
+#include<bits/stdc++.h>
+using namespace std;
 class Solution {
 public:
     vector<vector<int>> adj;

@@ -1,3 +1,4 @@
+//https://atcoder.jp/contests/practice2/tasks/practice2_a
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -17,19 +18,7 @@ const int MOD = 1000000007;
 const int N = 1e5+10;
 typedef vector<ll> vi;
 
-template<typename T>
-istream &operator>>(istream &is, vector<T> &v) {
-    for (auto &i: v) is >> i;
-    return is;
-}
-
-template<typename T>
-ostream &operator<<(ostream &os, vector<T> v) {
-    for (auto &i: v) os << i << ' ';
-    return os;
-} 
-
-int findParent(int i, int parent[])
+int findParent(int i,int parent[])
 //function to find the connected component that the ith node belongs to
 {
     if(parent[parent[i]] != parent[i])
@@ -61,7 +50,8 @@ void unionNodes(int a, int b, int parent[], int size[])
     return;
 }
 
-void solve() {
+int main()
+{
     ll n, q;
     cin >> n >> q;
     
@@ -69,29 +59,28 @@ void solve() {
     
     //at first everyone is parent of everyone
     rep0(i, n) parent[i] = i;
-
-    int type, x;
+    
+    ll type, u, v;
     while(q--) {
-        get(type);
-
-        if(type == 3) {
-            get(x);
-            //Report the number of the box that contains ball X
-            int ans = findParent(x, parent);
-            put(parent[ans]);
+        cin >> type >> u >> v;
+        
+        //find if both are in same connected components or not
+        if(type) {
+            ll a = findParent(u, parent);
+            ll b = findParent(v, parent);
+            
+            if(a == b) {
+                put(1);
+            }
+            
+            else put(0);
+        } 
+        
+        //build disjoint set
+        else {
+            unionNodes(u, v, parent, size);
         }
     }
-}
-
-int main() {
-    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-
-	int tc = 1;
-	//get(tc);
-	
-	while(tc--) {
-	    solve();
-	}
 
     return 0;
 }
