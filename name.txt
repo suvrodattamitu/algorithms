@@ -1,6 +1,6 @@
 (a) algorithms
-    level - alpha (first week) -> (ongoing)
-1. dfs/bfs/dsu(pending atcoder)
+    level - alpha (first week)
+1. dfs/bfs/dsu
 
 
 
@@ -11,7 +11,7 @@ https://atcoder.jp/contests/dp/tasks
 https://codeforces.com/group/MWSDmqGsZm/contest/223339
 
     level - ghama (third week)
-3. tree/binary_search(done)/bit 
+3. tree/binary_search/bit 
 
 
 [monday - friday]

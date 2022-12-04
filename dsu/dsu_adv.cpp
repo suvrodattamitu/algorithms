@@ -1,4 +1,4 @@
-//https://atcoder.jp/contests/abc279/tasks/abc279_f
+//https://atcoder.jp/contests/abc217/tasks/abc217_d
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -16,7 +16,6 @@ using namespace std;
 #define pb push_back
 const int MOD = 1000000007;
 const int N = 1e5+10;
-const ll MX = 300005;
 typedef vector<ll> vi;
 
 template<typename T>
@@ -31,7 +30,7 @@ ostream &operator<<(ostream &os, vector<T> v) {
     return os;
 } 
 
-ll findParent(ll i, ll parent[])
+int findParent(int i, int parent[])
 //function to find the connected component that the ith node belongs to
 {
     if(parent[parent[i]] != parent[i])
@@ -39,11 +38,11 @@ ll findParent(ll i, ll parent[])
     return parent[i];
 }
 
-void unionNodes(ll a, ll b, ll parent[], ll size[])
+void unionNodes(int a, int b, int parent[], int size[], vector<ll>& magnitudes)
 //to merge the connected components of nodes a and b
 {
-    ll parent_a = findParent(a, parent);
-    ll parent_b = findParent(b, parent);
+    int parent_a = findParent(a, parent);
+    int parent_b = findParent(b, parent);
     
     if(parent_a == parent_b)
         return;
@@ -52,68 +51,70 @@ void unionNodes(ll a, ll b, ll parent[], ll size[])
     {
         size[parent_a]     += size[parent_b];
         parent[parent_b]   = parent_a;
+        magnitudes[parent_a] += magnitudes[parent_b];
     }
     
     else
     {
         size[parent_b]  += size[parent_a];
         parent[parent_a] = parent_b;
+        magnitudes[parent_b]+=magnitudes[parent_a];
     }
     
     return;
 }
 
 void solve() {
-    ll n, q;
-    cin >> n >> q;
-    
-    ll parent[n+q] = {0}, size[n+q] = {0}, content[n+q] = {0}, belong[n+q] = {0};
-    
-    //at first everyone is parent of everyone
-    for(ll i = 1; i <= n+q; i++) {
-        parent[i]  = i;
-        content[i] = i;
-        belong[i]  = i;
+    vector<pair<int,int>> queries;
+
+    int l,q;
+    cin>>l>>q;
+
+    vector<int> cuts;
+
+    for(int i=0;i<q;i++){
+        int c,x;
+        cin>>c>>x;
+        queries.push_back({c,x});
+        if(c==1){
+            cuts.push_back(x);
+        }
     }
 
-    ll type, x, y, k = n;
-    while(q--) {
-        get(type);
+    cuts.push_back(l);
 
-        if(type == 3) {
-            get(x);
-            //Report the number of the box that contains ball X
-            int ans = findParent(x, parent);
-            put(belong[ans]);
+    sort(cuts.begin(),cuts.end());
+
+    int n=cuts.size();
+    vector<ll> magnitudes(n);
+
+    magnitudes[0]=cuts[0];
+    for(int i=1;i<n;i++){
+        magnitudes[i]=cuts[i]-cuts[i-1];
+    }
+
+    int parent[n+10] = {0}, size[n+10] = {0};
+    //at first everyone is parent of everyone
+    rep0(i, n) parent[i] = i;
+
+    vector<ll> ans;
+
+    for(int i=q-1;i>=0;i--){
+        int c=queries[i].first;
+        int x=queries[i].second;
+
+        int left = upper_bound(cuts.begin(),cuts.end(),x-1)-cuts.begin();
+        int right = upper_bound(cuts.begin(),cuts.end(),x)-cuts.begin();
+
+        if(c == 1) {
+            unionNodes(left, right, parent, size, magnitudes);
+        } else {
+            ans.push_back(magnitudes[findParent(right, parent)]);
         }
-        
-        else if(type == 1) {
-            cin >> x >> y;
-            //Put all contents of box Y into box X
-            
-            if (content[y] == -1) {
-                continue;
-            } else if (content[x] == -1) {
-                content[x] = content[y];
-                content[y] = -1;
-                belong[content[x]] = x;
-            } else {
-                unionNodes(content[x], content[y], parent, size);
-                content[y] = -1;
-            }
-        }
-        
-        else if(type == 2) {
-            get(x);
-            // Put ball k+1 into box X
-            k += 1;
-            if (content[x] == -1) {
-                content[x]  = k;
-                belong[k] = x;
-            } else {
-                unionNodes(content[x], k, parent, size);
-            }
-        }
+    }
+
+    for(int i=ans.size()-1;i>=0;i--){
+        cout<<ans[i]<<endl;
     }
 }
 
