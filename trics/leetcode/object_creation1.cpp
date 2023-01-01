@@ -1,5 +1,8 @@
 //https://leetcode.com/submissions/detail/743132697/
 //https://leetcode.com/problems/smallest-number-in-infinite-set/
+#include<bits/stdc++.h>
+using namespace std;
+
 class SmallestInfiniteSet {
 public:
     set<int> S;

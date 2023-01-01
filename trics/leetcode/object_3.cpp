@@ -1,4 +1,7 @@
 //https://leetcode.com/contest/weekly-contest-303/problems/design-a-food-rating-system/
+#include<bits/stdc++.h>
+using namespace std;
+
 class FoodRatings {
 public:
     map<string, string> C;
