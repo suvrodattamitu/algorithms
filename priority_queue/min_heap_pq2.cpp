@@ -1,4 +1,7 @@
 //https://leetcode.com/problems/maximum-product-after-k-increments/
+#include<bits/stdc++.h>
+using namespace std;
+
 #define mod 1000000007
 class Solution {
 public:
