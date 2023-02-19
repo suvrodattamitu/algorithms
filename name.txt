@@ -30,3 +30,17 @@ https://www.reddit.com/r/leetcode/comments/vsg6if/graph_theory_ii_study_plan_pre
 
 tushar roy
 https://github.com/mission-peace/interview/wiki
+
+a-lpha 
+[
+    1. dynamic programming
+    2. tree
+    3. bit manupulation
+]
+
+b-ita
+[
+    1. dfs/bfs/dsu 
+    2. kruskal/segment_tree/trie 
+    3. binary_search
+]

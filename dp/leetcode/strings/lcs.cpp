@@ -4,6 +4,7 @@ using namespace std;
 
 #define len(x) ((int)x.size()) 
 
+// for string start dp from end to start
 class Solution {
 public:
     int dp[1005][1005];

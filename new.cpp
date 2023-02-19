@@ -9,6 +9,7 @@ using namespace std;
 #define rrep0(i, n) for(ll i = n-1; i >= 0; i--)
 #define rrep1(i, n) for(ll i = n; i >= 0; i--)
 #define all(a) (a.begin()), (a.end())
+#define memo(a) memset(a, -1, sizeof(a));
 #define put(n) (cout << n << endl)
 #define get(n) (cin >> n)
 #define len(x) ((ll)x.size()) 
@@ -147,3 +148,30 @@ int main()
 		solve();
 	}
 }
+
+paiumoment
+12345 66789
+
+aazz
+1122
+
+abcabcd
+1233334
+
+19/2 = 9
+
+
+Input:
+[59,27,9,81,33]
+Output:
+48
+Expected:
+24
+
+Input:
+[58,42,8,75,28]
+Output:
+33
+Expected:
+30
+Stdout:

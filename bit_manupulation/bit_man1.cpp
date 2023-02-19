@@ -20,7 +20,7 @@ void solve() {
 		}
 	}
 
-	for(int i = 1; i <= n; i++){
+	for(int i = 1; i <= n; i++) {
 		bool works = true;
 		for(int j = 0; j < 32; j++) 
 			if(cnt[j]%i != 0) works = false;

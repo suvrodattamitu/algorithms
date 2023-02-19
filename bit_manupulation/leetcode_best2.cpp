@@ -1,4 +1,7 @@
 //https://leetcode.com/contest/biweekly-contest-89/problems/range-product-queries-of-powers/
+#include<bits/stdc++.h>
+using namespace std;
+
 typedef long long ll;
 class Solution {
 public:
