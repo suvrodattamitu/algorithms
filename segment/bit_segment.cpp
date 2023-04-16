@@ -41,3 +41,7 @@ public:
         return ans;
     }
 };
+
+
+//https://leetcode.com/problems/handling-sum-queries-after-update/solutions/3204818/c-solution-segment-tree-lazy-propagation/
+//https://leetcode.com/problems/handling-sum-queries-after-update/solutions/3202267/segment-tree-lazy-propagation-toggle-bits-concept-c-clean-code/

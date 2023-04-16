@@ -35,10 +35,10 @@ void solve() {
 	rep0(i, (1<<n)) {
 	    ll subsetSum = 0;
 	    rep0(j, n) {
-	        if(i&(1<<j)) subsetSum += arr[j];
+	        if(i & (1<<j)) subsetSum += arr[j];
 	    }
 	    
-	    ans = min(ans, abs(totalSum-2*subsetSum));
+	    ans = min(ans, abs(totalSum - 2*subsetSum));
 	}
 	
 	put(ans);
