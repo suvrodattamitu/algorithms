@@ -148,30 +148,3 @@ int main()
 		solve();
 	}
 }
-
-paiumoment
-12345 66789
-
-aazz
-1122
-
-abcabcd
-1233334
-
-19/2 = 9
-
-
-Input:
-[59,27,9,81,33]
-Output:
-48
-Expected:
-24
-
-Input:
-[58,42,8,75,28]
-Output:
-33
-Expected:
-30
-Stdout:

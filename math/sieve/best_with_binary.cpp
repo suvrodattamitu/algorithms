@@ -1,3 +1,4 @@
+//https://atcoder.jp/contests/abc300/tasks/abc300_d
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -72,8 +73,39 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define debug(x...);
 #endif
 
-void solve() {
+#define MAXP 1000000
+vi primes;
+void sieveOfEratosthenes()
+{
+    vector<bool> prime(MAXP + 1, true);
+    for (int i = 2; i <= MAXP; i++) {
+        if (prime[i]) {
+            primes.push_back(i);
+            for (int j = i * 2; j <= MAXP; j += i) {
+                prime[j] = false;
+            }
+        }
+    }
+}
     
+void solve() {
+    sieveOfEratosthenes();
+    ll n;
+    get(n);
+    
+    ll ans = 0;
+    rep0(i, len(primes)) {
+        ll a = primes[i];
+        for(int j = i + 1; j < len(primes); j++) {
+          ll b = primes[j];
+          ll cc = n / (a * a * b);
+          if (cc <= b * b) break;
+          ll c = sqrt(cc);
+          ans += UB(primes, c) - UB(primes, b);
+        }
+    }
+    
+    put(ans);
 }
 
 int main()

@@ -1,4 +1,7 @@
 //https://leetcode.com/contest/weekly-contest-313/problems/maximum-sum-of-an-hourglass/
+#include<bits/stdc++.h>
+using namespace std;
+
 class Solution {
 public:
     int maxSum(vector<vector<int>>& a) {

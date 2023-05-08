@@ -1,3 +1,4 @@
+//https://codeforces.com/problemset/problem/1829/D
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -72,8 +73,18 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define debug(x...);
 #endif
 
+int rec(int n, int m) {
+    if(n == m) return true;
+    if(n%3 != 0) return false;
+    return rec(n/3, m) || rec(n*2/3, m);
+}
+
 void solve() {
+    int n, m;
+    cin >> n >> m;
     
+    string ans = rec(n, m) ? "YES" : "NO";
+    put(ans);
 }
 
 int main()
@@ -81,7 +92,7 @@ int main()
 	ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 
     int tc = 1;
-	//get(tc);
+	get(tc);
 	while (tc--) {
 		solve();
 	}
