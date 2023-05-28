@@ -4,14 +4,21 @@ using namespace std;
 
 class Solution {
 public:
-    vector<int> graph[100005];
+    vector<int> graph[100005], arr;
     int sub[100005];
     
     //child of each parent count
     void dfs(int u, int p) {
         sub[u] = 1;
         for(auto&x : graph[u]) {
-            if(x == p) continue;
+            arr.push_back(x);
+            if(x == p) {
+                for(int val : arr) {
+                    cout << val << endl;
+                    arr.clear();
+                }
+                continue;
+            }
             dfs(x, u);
             sub[u] += sub[x];
         }

@@ -1,3 +1,4 @@
+//https://atcoder.jp/contests/abc301/tasks/abc301_d
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -10,11 +11,7 @@ using namespace std;
 #define all(a) (a.begin()), (a.end())
 #define memo(a) memset(a, -1, sizeof(a));
 #define put(n) (cout << n << endl)
-#define get(n) (cin >> n);
-#define get2(a,b)get(a)get(b)
-#define get3(a,b,c)get2(a,b)get(c)
-#define get4(a,b,c,d)get2(a,b)get2(c,d)
-#define get5(a,b,c,d,e)get4(a,b,c,d)get(e)
+#define get(n) (cin >> n)
 #define len(x) ((ll)x.size()) 
 #define pb push_back
 #define MIN(v) *min_element(all(v))
@@ -77,7 +74,32 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #endif
 
 void solve() {
+    string str;
+    get(str);
     
+    ll n;
+    get(n);
+    
+    ll sum = 0;
+    int sz = len(str);
+    for(int i = 0; i < sz; i++) {
+        if(str[i] == '1') {
+            sum += 1LL<<(sz-1-i);
+        }
+    }
+    
+    if(n < sum) {
+        put(-1);
+        return;
+    }
+    
+    for (int i = 0; i < sz; i++) {
+        if (str[i] == '?' && sum + (1LL << (sz - 1 - i)) <= n) {
+            sum += (1LL << (sz - 1 - i));
+        }
+    }
+    
+    put(sum);
 }
 
 int main()
@@ -89,4 +111,39 @@ int main()
 	while (tc--) {
 		solve();
 	}
+}
+
+
+..................
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define int ll
+
+string s;
+int n,curr;
+
+signed main(){
+    ios::sync_with_stdio(false);
+	cin.tie(NULL);
+    cin >> s;
+    cin >> n;
+    reverse(s.begin(),s.end());
+    for(int i=0;i<s.length();i++){
+        if(s[i]=='1'){
+            curr += (1LL<<i);
+        }
+    }
+    if(curr>n){
+        cout << -1 << "\n";
+        return 0;
+    }
+    for(int i=s.length()-1;i>=0;i--){
+        if(s[i]=='?'){
+            if(curr+(1LL<<i)<=n){
+                curr += (1LL<<i);
+            }
+        }
+    }
+    cout << curr << "\n";
 }

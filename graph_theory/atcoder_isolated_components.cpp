@@ -1,3 +1,4 @@
+//https://atcoder.jp/contests/abc302/tasks/abc302_e
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -77,6 +78,33 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #endif
 
 void solve() {
+    ll vertices, queries;
+    get2(vertices, queries);
+    
+    vector<set<int>> graph(vertices+1);
+    ll type, a, b, ans = vertices;
+    while(queries--) {
+        get(type);
+        if(type == 1) {
+            get2(a, b);
+            if(len(graph[a]) == 0) --ans;
+            if(len(graph[b]) == 0) --ans;
+            graph[a].insert(b);
+            graph[b].insert(a);
+        } else {
+            get(a);
+            if(len(graph[a])) ++ans;
+            
+            for(int cur : graph[a]) {
+                graph[cur].erase(a); 
+                if(len(graph[cur]) == 0) ++ans;
+            }
+            
+            graph[a].clear();
+        }
+        
+        put(ans);
+    }
     
 }
 
@@ -90,3 +118,27 @@ int main()
 		solve();
 	}
 }
+
+//degree solution
+// vector<set<int>> graph(N);
+// vector<int> deg(N, 0);
+// if (typ == 1) {
+//     int u, v;
+//     scanf("%d%d", &u, &v);
+//     --u;
+//     --v;
+//     graph[u].insert(v);
+//     graph[v].insert(u);
+//     if (!deg[u]++) --ans;
+//     if (!deg[v]++) --ans;
+// } else {
+//     int u;
+//     scanf("%d", &u);
+//     --u;
+//     for (const int v : graph[u]) {
+//         graph[v].erase(u);
+//         if (!--deg[u]) ++ans;
+//         if (!--deg[v]) ++ans;
+//     }
+//     graph[u].clear();
+// }

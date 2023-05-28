@@ -47,3 +47,5 @@ public:
        return rec(0, s); 
     }
 };
+
+//https://leetcode.com/problems/extra-characters-in-a-string/solutions/3568569/similar-to-word-break-dp/

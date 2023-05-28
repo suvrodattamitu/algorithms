@@ -1,3 +1,4 @@
+//https://mirror.codeforces.com/contest/1837/problem/D
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -77,7 +78,65 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #endif
 
 void solve() {
+    ll n; string str;
+    get2(n, str);
     
+    ll balance = 0;
+    rep0(i, n) {
+        if(str[i] == '(') balance++;
+        else balance--;
+    }
+    
+    if(balance != 0) {
+        put(-1);
+        return;
+    }
+    
+    stack<int> stk;
+    vector<int> ans(n, 2);
+    
+    bool done = true;
+    rep0(i, n) {
+        if(str[i] == '(') {
+            stk.push(i);
+        } else {
+            if(stk.empty()) {
+                done = false;
+                continue;
+            }
+            
+            ans[i] = 1;
+            ans[stk.top()] = 1;
+            stk.pop();
+        }
+    }
+    
+    if(!done) {
+        while(!stk.empty()) {
+            stk.pop();
+        }
+         
+        ans.assign(n, 2);
+         
+        rep0(i, n) {
+            if(str[i] == ')') {
+               stk.push(i);
+            } else {
+               if(stk.empty()) {
+                  continue;
+               }
+ 
+               ans[i] = 1;
+               ans[stk.top()] = 1;
+               stk.pop();
+            }
+        }
+    }
+    
+    int colors = MAX(ans);
+    
+    put(colors);
+    put(ans);
 }
 
 int main()
@@ -85,7 +144,7 @@ int main()
 	ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 
     int tc = 1;
-	//get(tc);
+	get(tc);
 	while (tc--) {
 		solve();
 	}

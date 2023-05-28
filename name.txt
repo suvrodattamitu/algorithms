@@ -44,3 +44,6 @@ b-ita
     2. kruskal/segment_tree/trie 
     3. binary_search
 ]
+
+algo collection vai shohag vaia,,
+https://github.com/ShahjalalShohag/code-library/blob/master/Graph%20Theory/3%20SAT.cpp

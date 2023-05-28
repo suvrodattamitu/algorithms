@@ -10,11 +10,7 @@ using namespace std;
 #define all(a) (a.begin()), (a.end())
 #define memo(a) memset(a, -1, sizeof(a));
 #define put(n) (cout << n << endl)
-#define get(n) (cin >> n);
-#define get2(a,b)get(a)get(b)
-#define get3(a,b,c)get2(a,b)get(c)
-#define get4(a,b,c,d)get2(a,b)get2(c,d)
-#define get5(a,b,c,d,e)get4(a,b,c,d)get(e)
+#define get(n) (cin >> n)
 #define len(x) ((ll)x.size()) 
 #define pb push_back
 #define MIN(v) *min_element(all(v))
@@ -76,8 +72,68 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define debug(x...);
 #endif
 
-void solve() {
+
+bool vis[301][301];
+
+string dirs[4] = {"DL", "UL", "UR", "DR"};
+int dRow[4] = {1, -1, -1, 1};
+int dCol[4] = {-1, -1, 1, 1};
+
+string dir;
+int rows, cols, startx, starty, endx, endy;
+
+int found, ans;
+
+int dir_idx = -1;
+bool has_wall_in(int x, int y) {
+    if(x == 0 || y == 0) return 1;
+    if(x == rows-1 || y == cols-1) return 1;
+    return 0;
+}
+
+void dfs(int x, int y) {
+    if(x == endx && y == endy) {
+        return;
+    }
+
+    if((x == 0 && y == 0) || (x == rows-1 && y == cols-1) || (x == 0 && y == cols-1) || (x == rows-1 && y == 0)) {
+        found = 1;
+        return;
+    }
+
+    ++ans;
     
+    //change dir
+    if(has_wall_in(x, y)) {
+        dir_idx = (dir_idx+1) % 4;
+    }
+    
+    int xx = x + dRow[dir_idx];
+    int yy = y + dCol[dir_idx];
+    dfs(xx, yy);
+}
+
+void solve() {
+    cin >> rows >> cols >> startx >> starty >> endx >> endy >> dir;
+
+    --startx; --starty;
+    --endx; --endy;
+
+    found = 0; 
+    ans = 0;
+
+    rep0(i, 4) {
+        if(dir == dirs[i]) dir_idx = i;
+    }
+
+    dfs(startx, starty);
+
+    if(found) {
+        put(-1);
+        return;
+    }
+
+    put(ans);
 }
 
 int main()
@@ -85,7 +141,7 @@ int main()
 	ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 
     int tc = 1;
-	//get(tc);
+	get(tc);
 	while (tc--) {
 		solve();
 	}

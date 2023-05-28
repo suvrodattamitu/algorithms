@@ -1,3 +1,4 @@
+//https://codeforces.com/problemset/problem/1829/F
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -77,7 +78,21 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #endif
 
 void solve() {
-    
+    int n, m;
+    cin >> n >> m;
+    vector<int> deg(n + 1);
+    for(int i = 1; i <= m; i++) {
+        int u, v;
+        cin >> u >> v;
+        deg[u] += 1, deg[v] += 1;
+    }
+    int leaf = 0;
+    for(int  i = 1; i <= n; i++) {
+        if(deg[i] == 1) leaf += 1;
+    }
+    int x = n - leaf - 1;
+    int y = leaf / x;
+    cout << x << ' ' << y << endl;
 }
 
 int main()
@@ -85,7 +100,7 @@ int main()
 	ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 
     int tc = 1;
-	//get(tc);
+	get(tc);
 	while (tc--) {
 		solve();
 	}

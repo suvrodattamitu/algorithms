@@ -11,7 +11,7 @@ using namespace std;
 #define memo(a) memset(a, -1, sizeof(a));
 #define put(n) (cout << n << endl)
 #define get(n) (cin >> n);
-#define get2(a,b)get(a)get(b)
+#define get2(a,b) get(a) get(b)
 #define get3(a,b,c)get2(a,b)get(c)
 #define get4(a,b,c,d)get2(a,b)get2(c,d)
 #define get5(a,b,c,d,e)get4(a,b,c,d)get(e)
@@ -76,8 +76,30 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define debug(x...);
 #endif
 
+ll n, m, d;
+set<ll> A, B;
 void solve() {
-    
+    get3(n, m, d);
+	rep0(i, n) {
+		ll a; get(a);
+		A.insert(a);
+	}
+	
+	rep0(i, m) {
+		ll b; get(b);
+		B.insert(b);
+	}
+	
+	ll ans = -1;
+	for(ll a : A) {
+		auto it = B.upper_bound(a + d);
+		if(it != B.begin()) {
+			ll b = *--it;
+			if(abs(a-b) <= d) ans = max(ans, a+b);
+		}
+	}
+	
+	put(ans);
 }
 
 int main()
@@ -89,4 +111,28 @@ int main()
 	while (tc--) {
 		solve();
 	}
+}
+
+//..........................using binary search........................
+
+void solve() {
+  int n, m;
+  int64_t d;
+  get3(n, m, d);
+  vector<int64_t> a(n);
+  cin >> a;
+  vector<int64_t> b(m);
+  cin >> b;
+  sort(all(a));
+  sort(all(b));
+  int64_t ans = -1;
+  for (auto e : a) {
+    if (auto it = ALL(upper_bound, b, e + d); it != begin(b)) {
+      --it;
+      if (e - d <= *it) {
+        ans = max(ans, e + *it);
+      }
+    }
+  }
+  cout << ans << '\n';
 }

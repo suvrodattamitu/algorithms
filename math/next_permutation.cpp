@@ -1,3 +1,4 @@
+//https://atcoder.jp/contests/abc302/tasks/abc302_c
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -10,7 +11,7 @@ using namespace std;
 #define all(a) (a.begin()), (a.end())
 #define memo(a) memset(a, -1, sizeof(a));
 #define put(n) (cout << n << endl)
-#define get(n) (cin >> n);
+#define get(n) (cin >> n)
 #define get2(a,b)get(a)get(b)
 #define get3(a,b,c)get2(a,b)get(c)
 #define get4(a,b,c,d)get2(a,b)get2(c,d)
@@ -76,8 +77,39 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define debug(x...);
 #endif
 
-void solve() {
+bool is_valid(string a, string b) {
+    int cnt = 0;
+    rep0(i, len(a)) {
+        if(a[i] != b[i]) ++cnt;
+    }
     
+    return (cnt == 1);
+}
+
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    
+    vector<string> str(n);
+    rep0(i, n) {
+        get(str[i]);
+    }
+    
+    sort(all(str));
+    
+    do {
+        int ans = 1;
+        rep0(i, n-1) {
+            ans &= is_valid(str[i], str[i+1]);
+        }
+        
+        if(ans) {
+            put("Yes");
+            return;
+        }
+    } while(next_permutation(all(str)));
+    
+    put("No");
 }
 
 int main()

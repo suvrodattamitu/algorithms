@@ -20,6 +20,8 @@ int main() {
     cout << algos[idx] << endl;
 }
 
+//https://usaco.guide/general/using-this-guide?lang=cpp
+
 //shortest path in a grid bfs
 //must do dps : https://leetcode.com/list/50wroh7h/
 

@@ -1,3 +1,4 @@
+//https://www.spoj.com/problems/ADDREV/
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -10,11 +11,7 @@ using namespace std;
 #define all(a) (a.begin()), (a.end())
 #define memo(a) memset(a, -1, sizeof(a));
 #define put(n) (cout << n << endl)
-#define get(n) (cin >> n);
-#define get2(a,b)get(a)get(b)
-#define get3(a,b,c)get2(a,b)get(c)
-#define get4(a,b,c,d)get2(a,b)get2(c,d)
-#define get5(a,b,c,d,e)get4(a,b,c,d)get(e)
+#define get(n) (cin >> n)
 #define len(x) ((ll)x.size()) 
 #define pb push_back
 #define MIN(v) *min_element(all(v))
@@ -76,8 +73,29 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define debug(x...);
 #endif
 
+ll reverse(ll a)
+{ 
+    int num = 0;
+	while(a != 0) { 
+	    num *= 10;
+	    num += (a%10);
+	    a /= 10;
+	}
+
+	return num;
+}
+
 void solve() {
+    ll a, b;
+    cin >> a >> b;
     
+    a = reverse(a);
+    b = reverse(b);
+    
+    ll sum = a + b;
+    sum = reverse(sum);
+    
+    put(sum);
 }
 
 int main()
@@ -85,7 +103,7 @@ int main()
 	ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 
     int tc = 1;
-	//get(tc);
+	get(tc);
 	while (tc--) {
 		solve();
 	}

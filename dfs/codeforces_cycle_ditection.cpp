@@ -10,7 +10,7 @@ using namespace std;
 #define all(a) (a.begin()), (a.end())
 #define memo(a) memset(a, -1, sizeof(a));
 #define put(n) (cout << n << endl)
-#define get(n) (cin >> n);
+#define get(n) (cin >> n)
 #define get2(a,b)get(a)get(b)
 #define get3(a,b,c)get2(a,b)get(c)
 #define get4(a,b,c,d)get2(a,b)get2(c,d)
@@ -76,8 +76,56 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define debug(x...);
 #endif
 
+vector<vector<int>> graph;
+vector<int> vis;
+
+bool dfs(int u, int parent) {
+    vis[u] = 1;
+    for(int v : graph[u]) {
+        if(v == parent) continue;
+        if(vis[v] == 0) {
+            dfs(v, u);
+        } 
+        
+        else if(vis[v] == 1) {
+            return true;
+        }
+    }
+    vis[u] = 2;
+    return false;
+}
+
 void solve() {
+    int n;
+    get(n);
     
+    graph.resize(n+1);
+    vis.resize(n+1, 0);
+    
+    rep1(i, n) {
+        graph[i].clear();
+    }
+    
+    vis.clear();
+
+    int a;
+    rep1(i, n) {
+        get(a);
+        graph[i].pb(a);
+        graph[a].pb(i);
+    }
+    
+    int mx = 0, mn = 0;
+    rep1(i, n) {
+        if(vis[i] == 0) {
+            if(dfs(i, -1)) ++mn; //number of cycle
+            ++mx; //number of connected components
+        }
+    }
+    
+    if(mn < mx)mn++;
+
+    cout << mn << " " << mx << endl;
 }
 
 int main()
@@ -85,7 +133,7 @@ int main()
 	ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 
     int tc = 1;
-	//get(tc);
+	get(tc);
 	while (tc--) {
 		solve();
 	}
