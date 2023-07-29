@@ -1,4 +1,5 @@
 //https://leetcode.com/contest/weekly-contest-320/problems/minimum-fuel-cost-to-report-to-the-capital/
+//https://leetcode.com/problems/minimum-fuel-cost-to-report-to-the-capital/solutions/3174979/c-dfs-beats-63/
 #include<bits/stdc++.h>
 using namespace std;
 

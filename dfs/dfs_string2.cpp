@@ -1,13 +1,13 @@
+// https://codeforces.com/problemset/problem/1800/E2
 #include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
 #define ull unsigned long long
-#define For(i, a, n) for(ll i = a; i <= n; i++)
 #define rep0(i,n) for(ll i = 0; i < n; i++)
 #define rep1(i,n) for(ll i = 1; i <= n; i++)
 #define rrep0(i, n) for(ll i = n-1; i >= 0; i--)
-#define rrep1(i, n) for(ll i = n; i >= 1; i--)
+#define rrep1(i, n) for(ll i = n; i >= 0; i--)
 #define all(a) (a.begin()), (a.end())
 #define memo(a) memset(a, -1, sizeof(a));
 #define put(n) (cout << n << endl)
@@ -27,9 +27,7 @@ const ll MOD = 1000000007;
 const long long oo = 1e16;
 const ll MX = (1LL<<60);
 const int LOG = 60;
-const ll N = 1e5+10;
-const ll maxn = 2e5;
-
+const ll N = 2e5+10;
 typedef vector<ll> vi;
 typedef pair<ll, ll> pii;
 
@@ -80,8 +78,74 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define debug(x...);
 #endif
 
-void solve() {
+vector<int> graph[N], items, vis;
+void dfs(int cur) {
+    if(vis[cur]) return;
     
+    vis[cur] = 1;
+    items.pb(cur);
+    for(int next : graph[cur]) {
+        if(!vis[next]) {
+            dfs(next);
+        }
+    }
+} 
+
+void solve() {
+    ll n, k;
+    get2(n, k);
+    
+    string str1, str2;
+    get2(str1, str2);
+    
+    rep0(i, n) {
+        if(i+k < n) {
+          graph[i].pb(i+k);  
+          graph[i+k].pb(i); 
+        }
+        
+        if(i+k+1 < n) {
+            graph[i].pb(i+k+1);
+            graph[i+k+1].pb(i);
+        }
+    }
+    
+    vector <vector<int>> components;
+    
+    vis.resize(n+1, 0);
+    rep0(i, n){
+        if(!vis[i]) {
+            items.clear();
+            dfs(i);
+            components.pb(items);
+        }
+    }
+    
+    bool yes = 1;
+    for(vector <int> c : components) {
+        string first  = "";
+        string second = "";
+        
+        for(int i : c) {
+            first  += str1[i];
+            second += str2[i];
+        }
+    
+        sort(all(first));
+        sort(all(second));
+        yes &= (first == second);
+    }
+    
+    if(yes) {
+        put("YES");
+    } else {
+        put("NO");
+    }
+        
+    rep0(i, n) {
+        vis[i] = 0;
+        graph[i].clear();
+    }
 }
 
 int main()
