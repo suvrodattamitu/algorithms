@@ -1,25 +1,21 @@
-//https://www.codechef.com/problems/MAIL_DELIVER
+//https://practice.geeksforgeeks.org/contest/gfg-weekly-coding-contest-116/problems
 #include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
 #define ull unsigned long long
+#define For(i, a, n) for(ll i = a; i <= n; i++)
 #define rep0(i,n) for(ll i = 0; i < n; i++)
 #define rep1(i,n) for(ll i = 1; i <= n; i++)
 #define rrep0(i, n) for(ll i = n-1; i >= 0; i--)
-#define rrep1(i, n) for(ll i = n; i >= 0; i--)
+#define rrep1(i, n) for(ll i = n; i >= 1; i--)
 #define all(a) (a.begin()), (a.end())
-#define memo(a) memset(a, -1, sizeof(a));
-#define put(n) (cout << n << endl)
-#define get(n) (cin >> n);
-#define get2(a,b)get(a)get(b)
-#define get3(a,b,c)get2(a,b)get(c)
-#define get4(a,b,c,d)get2(a,b)get2(c,d)
-#define get5(a,b,c,d,e)get4(a,b,c,d)get(e)
+#define memo(a) memset(a, -1, sizeof(a))
 #define len(x) ((ll)x.size()) 
 #define pb push_back
 #define MIN(v) *min_element(all(v))
 #define MAX(v) *max_element(all(v))
+#define SUM(v) accumulate(all(v), 0LL)
 #define LB(c, x) distance((c).begin(), lower_bound(all(c), (x)))
 #define UB(c, x) distance((c).begin(), upper_bound(all(c), (x)))
 const ll MOD = 1000000007;
@@ -27,8 +23,23 @@ const long long oo = 1e16;
 const ll MX = (1LL<<60);
 const int LOG = 60;
 const ll N = 1e5+10;
+const ll maxn = 2e5;
+typedef pair<ll, ll> pi;
 typedef vector<ll> vi;
-typedef pair<ll, ll> pii;
+typedef vector<vi> vvi;
+typedef vector<pi> vpi;
+
+//output
+#define put(a) (cout << a << endl)
+#define put2(a, b) (cout << a << " " << b << endl)
+#define spaced(n) (cout << n << " ")
+#define ln() (cout << "\n")
+//input
+#define get(n) (cin >> n);
+#define get2(a,b)get(a)get(b)
+#define get3(a,b,c)get2(a,b)get(c)
+#define get4(a,b,c,d)get2(a,b)get2(c,d)
+#define get5(a,b,c,d,e)get4(a,b,c,d)get(e)
 
 void out(){cout << '\n';}
 template<class T>void out(const T& a){cout << a << '\n';}
@@ -78,56 +89,43 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #endif
 
 void solve() {
-    ll n, m, k;
-    get3(n, m, k);
-   
-    vector<pair<int, int>> c(k); // (node, dist)
-    rep0(i, k) {
-       get(c[i].first);
-    }
-   
-    rep0(i, k) {
-       get(c[i].second);
-    }
-   
-    vector<vector<int>> g(n + 1);
-    ll x, y;
-    rep0(i, m) {
-       get2(x, y);
-       
-       g[x].pb(y);
-       g[y].pb(x);
-    }
-   
-    queue<int> q;
-    vector<int> vis(n + 1, 0);
-    vector<int> remainingMoves(n + 1, 0);
-    for (auto [node, dist] : c) {
-        q.push(node);
-        remainingMoves[node] = max(remainingMoves[node], dist - 1);
-        vis[node] = 1;
-    }
+    ll n;
+    get(n);
     
-    while (!q.empty()) {
-        int node = q.front(); q.pop();
-        if (remainingMoves[node] == 0) continue;
-        for (auto &nei: g[node]) {
-            if (remainingMoves[node] > remainingMoves[nei]) {
-                vis[nei] = 1;
-                remainingMoves[nei] = remainingMoves[node] - 1;
-                q.push(nei);
-            }
+    vi arr(n);
+    rep0(i, n) get(arr[i]);
+    
+    ll ans = 0, neg = 0, zro = 0, mn = INT_MAX;
+    rep0(i, n) {
+        ll x = (i+1) * 1ll * (n-i);
+        
+        //contribution of this idx is = x times;
+        ll number = arr[i] * x; 
+        
+        if(number < 0) {
+            neg++;
         }
-    }
-    
-    for (int node = 1; node <= n; node++) {
-        if (!vis[node]) {
-            put("NO");
-            return;
+        
+        if(number == 0) {
+            zro++; // we need at least one zro if neg is odd number.
         }
+        
+        mn = min(mn, abs(number));
+        ans += abs(number);
     }
     
-    put("YES");
+    if(neg%2 == 0) {
+        put(ans);
+        return;
+    }
+    
+    if(neg%2 && zro) {
+        put(ans);
+        return;
+    }
+    
+    ans -= (2 * mn);
+    put(ans);
 }
 
 int main()
@@ -135,7 +133,7 @@ int main()
 	ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 
     int tc = 1;
-	get(tc);
+	//get(tc);
 	while (tc--) {
 		solve();
 	}

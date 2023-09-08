@@ -27,6 +27,7 @@ public:
                 root -> child[id] = new Trie();
             root = root -> child[id];
         }
+        
         root->isWordCompleted = true;
         root->word = word;
     }

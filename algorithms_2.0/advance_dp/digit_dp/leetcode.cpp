@@ -48,7 +48,7 @@ public:
         
         if(n == 0) {
             return (digit_sum >= min_sum && digit_sum <= max_sum);
-        } 
+        }
 
         if(dp[n][digit_sum][tight] != -1) return dp[n][digit_sum][tight];
 

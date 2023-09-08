@@ -1,16 +1,19 @@
-//https://www.codechef.com/problems/MAIL_DELIVER
+//https://atcoder.jp/contests/abc312/tasks/abc312_d
+
 #include <bits/stdc++.h>
 using namespace std;
 
 #define ll long long
 #define ull unsigned long long
+#define For(i, a, n) for(ll i = a; i <= n; i++)
 #define rep0(i,n) for(ll i = 0; i < n; i++)
 #define rep1(i,n) for(ll i = 1; i <= n; i++)
 #define rrep0(i, n) for(ll i = n-1; i >= 0; i--)
-#define rrep1(i, n) for(ll i = n; i >= 0; i--)
+#define rrep1(i, n) for(ll i = n; i >= 1; i--)
 #define all(a) (a.begin()), (a.end())
 #define memo(a) memset(a, -1, sizeof(a));
 #define put(n) (cout << n << endl)
+#define spaced(n) (cout << n << " ")
 #define get(n) (cin >> n);
 #define get2(a,b)get(a)get(b)
 #define get3(a,b,c)get2(a,b)get(c)
@@ -22,11 +25,13 @@ using namespace std;
 #define MAX(v) *max_element(all(v))
 #define LB(c, x) distance((c).begin(), lower_bound(all(c), (x)))
 #define UB(c, x) distance((c).begin(), upper_bound(all(c), (x)))
-const ll MOD = 1000000007;
+const ll MOD = 998244353;
 const long long oo = 1e16;
 const ll MX = (1LL<<60);
 const int LOG = 60;
-const ll N = 1e5+10;
+const ll N = 1e9+10;
+const ll maxn = 2e5;
+
 typedef vector<ll> vi;
 typedef pair<ll, ll> pii;
 
@@ -77,57 +82,44 @@ void _print(T t, V... v) {__print(t); if (sizeof...(v)) cerr << ", "; _print(v..
 #define debug(x...);
 #endif
 
+ll dp[3005][3005];
+string str;
+ll rec(ll idx, ll left) {
+    if(left < 0) return 0;
+    
+    if(idx == len(str)) {
+        return (left == 0);
+    }
+    
+    if(dp[idx][left] != -1) return dp[idx][left];
+    
+    ll ans = 0;
+    if(str[idx] == '(') {
+        ans = rec(idx+1, left+1);
+    } 
+    
+    else if(str[idx] == ')') {
+        ans = rec(idx+1, left-1);
+    }
+    
+    else {
+        ans = rec(idx+1, left-1) + rec(idx+1, left+1);
+    }
+    
+    ans %= MOD;
+    return dp[idx][left] = ans;
+}
+
 void solve() {
-    ll n, m, k;
-    get3(n, m, k);
-   
-    vector<pair<int, int>> c(k); // (node, dist)
-    rep0(i, k) {
-       get(c[i].first);
-    }
-   
-    rep0(i, k) {
-       get(c[i].second);
-    }
-   
-    vector<vector<int>> g(n + 1);
-    ll x, y;
-    rep0(i, m) {
-       get2(x, y);
-       
-       g[x].pb(y);
-       g[y].pb(x);
-    }
-   
-    queue<int> q;
-    vector<int> vis(n + 1, 0);
-    vector<int> remainingMoves(n + 1, 0);
-    for (auto [node, dist] : c) {
-        q.push(node);
-        remainingMoves[node] = max(remainingMoves[node], dist - 1);
-        vis[node] = 1;
-    }
+    get(str);
     
-    while (!q.empty()) {
-        int node = q.front(); q.pop();
-        if (remainingMoves[node] == 0) continue;
-        for (auto &nei: g[node]) {
-            if (remainingMoves[node] > remainingMoves[nei]) {
-                vis[nei] = 1;
-                remainingMoves[nei] = remainingMoves[node] - 1;
-                q.push(nei);
-            }
-        }
-    }
+    memo(dp);
     
-    for (int node = 1; node <= n; node++) {
-        if (!vis[node]) {
-            put("NO");
-            return;
-        }
-    }
+    ll ans = rec(0, 0);
     
-    put("YES");
+    ans += MOD;
+    ans %= MOD;
+    put(ans);
 }
 
 int main()
@@ -135,7 +127,7 @@ int main()
 	ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 
     int tc = 1;
-	get(tc);
+	//get(tc);
 	while (tc--) {
 		solve();
 	}
